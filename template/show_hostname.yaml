@@ -1,0 +1,14 @@
+---
+- name: 显示目标机器的主机名和基本信息
+  hosts: all  # 对所有目标主机执行
+  gather_facts: true  # 收集主机信息，这会自动获取主机名等
+
+  tasks:
+    - name: 【方法二】使用命令直接获取主机名
+      ansible.builtin.shell:
+        cmd: "hostname"
+      register: hostname_result  # 将命令执行结果保存到变量中
+
+    - name: 显示命令执行得到的主机名
+      ansible.builtin.debug:
+        msg: "通过命令获取的主机名是：{{ hostname_result.stdout }}"
